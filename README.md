@@ -1,6 +1,6 @@
-# Boiler plate for Next.js applications using a custom Express-Graphql server
+# next-gql
 
-## How to use
+## Boiler plate for Next.js applications using a custom Express-Graphql server
 
 Install it and run:
 
