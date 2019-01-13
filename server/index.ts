@@ -1,7 +1,11 @@
+import * as dotenv from 'dotenv'
 import * as express from 'express'
 import * as next from 'next'
 import * as expressGraphql from 'express-graphql'
+import * as mongoose from 'mongoose'
 import { buildSchema } from 'graphql'
+
+dotenv.config()
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -46,8 +50,12 @@ app.prepare()
             return handle(req, res)
         })
 
-        server.listen(port, err => {
-            if (err) throw err
-            console.log(`> Ready on http://localhost:${port}`)
-        })
+        mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-fzaky.mongodb.net/test?retryWrites=true`)
+            .then(() => {
+                server.listen(port, err => {
+                    if (err) throw err
+                    console.log(`> Ready on http://localhost:${port}`)
+                })
+            })
+            .catch(error => { console.log(error) })
     })
