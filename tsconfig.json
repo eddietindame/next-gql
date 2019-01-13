@@ -10,6 +10,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
+    "noImplicitAny": false,
     "preserveConstEnums": true,
     "sourceMap": true,
     "skipLibCheck": true,
@@ -21,6 +22,16 @@
       "dom",
       "es2015",
       "es2016"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "./tslint.json",
+        "suppressWhileTypeErrorsPresent": false,
+        "mockTypeScriptVersion": false
+      }
     ]
   }
 }
