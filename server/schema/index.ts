@@ -5,6 +5,7 @@ export const schema = buildSchema(`
         message: String
         add(num1: Int!, num2: Int!): Int
         events: [Event!]!
+        users: [User!]!
     }
 
     type Mutation {

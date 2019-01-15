@@ -1,9 +1,11 @@
 import { events } from './events'
+import { users } from './users'
 import { createEvent } from './createEvent'
 import { createUser } from './createUser'
 
 export const rootValue = {
     events,
+    users,
     createEvent,
     createUser,
     message: () => 'Hello World!',

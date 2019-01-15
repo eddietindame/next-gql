@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test": "NODE_ENV=test jest --watch",
     "dev": "nodemon server/index.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js"
@@ -7,28 +8,31 @@
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-typescript": "^1.1.0",
-    "autoprefixer": "^9.4.5",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.2.1",
-    "cssnano": "^4.1.8",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.0.2",
     "mongoose": "^5.4.3",
     "next": "^7.0.2",
-    "node-sass": "^4.11.0",
-    "postcss": "^7.0.11",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.0",
+    "@types/jest": "^23.3.12",
     "@types/mongoose": "^5.3.7",
     "@types/next": "^7.0.0",
     "@types/react": "^16.6.0",
+    "autoprefixer": "^9.4.5",
     "cross-env": "^5.2.0",
+    "cssnano": "^4.1.8",
+    "jest": "^23.6.0",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.18.8",
+    "postcss": "^7.0.11",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.0"
   }
