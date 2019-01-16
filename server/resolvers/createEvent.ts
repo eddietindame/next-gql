@@ -1,24 +1,40 @@
 import { Event } from '../models/Event'
 import { User } from '../models/User'
+import { mapEvent } from '../lib'
 
-export const createEvent = ({ title, description, price, date }) => {
-    const event = new Event({
-        title,
-        description,
-        price,
-        date: new Date(date),
-        creator: '5c3bb2db0102845784749714'
-    })
+const USER_ID = '5c3bb2db0102845784749714'
 
-    return event.save()
-        .then(async event => {
-            await User.findByIdAndUpdate('5c3bb2db0102845784749714', { createdEvents: event }, error => {
+export const createEvent = async ({
+    title,
+    description,
+    price,
+    date
+}) => {
+    try {
+        const event = await new Event({
+            title,
+            description,
+            price,
+            date: new Date(date),
+            creator: USER_ID
+        }).save()
+        const user = await User.findById(USER_ID)
+
+        await User.findByIdAndUpdate(
+            USER_ID,
+            {
+                createdEvents: [
+                    ...(<any>user)._doc.createdEvents,
+                    event
+                ]
+            },
+            {
+                new: true
+            },
+            error => {
                 if (error) throw new Error('User does not exist.')
-            })
-            return {
-                ...(<any>event)._doc,
-                _id: (<any>event).id
             }
-        })
-        .catch(error => { throw error })
+        )
+        return mapEvent(event)
+    } catch (error) { throw error }
 }

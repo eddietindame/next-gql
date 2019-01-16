@@ -6,11 +6,14 @@ export const schema = buildSchema(`
         add(num1: Int!, num2: Int!): Int
         events: [Event!]!
         users: [User!]!
+        bookings: [Booking!]!
     }
 
     type Mutation {
         createEvent(title: String!, description: String!, price: Float!, date: String!): Event
-        createUser(userInput: UserInput): User
+        createUser(email: String!, password: String!): User
+        bookEvent(eventId: ID!): Event!
+        cancelBooking(bookingId: ID!): Event!
     }
 
     type Event {
@@ -33,4 +36,14 @@ export const schema = buildSchema(`
         email: String!
         password: String!
     }
+
+    type Booking {
+        _id: ID!
+        event: Event!
+        user: User!
+        createdAt: String!
+        updatedAt: String!
+    }
 `)
+
+// createUser(userInput: UserInput): User

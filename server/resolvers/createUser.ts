@@ -1,26 +1,29 @@
 import * as bcrypt from 'bcryptjs'
 import { User } from '../models/User'
+import { mapUser } from '../lib'
 
-export const createUser = ({ userInput }) =>
-    User.findOne({
-        email: userInput.email
-    })
-        .then(user => {
-            if (user) throw new Error('User exists already.')
-            return bcrypt.hash(userInput.password, 12)
+export const createUser = async ({ email, password }) => {
+    try {
+        const _user = await User.findOne({ email: email })
+        if (_user) throw new Error('User exists already.')
+        const hashedPassword = await bcrypt.hash(password, 12)
+        const user = new User({
+            email: email,
+            password: hashedPassword
         })
-        .then(hashedPassword => {
-            const user = new User({
-                email: userInput.email,
-                password: hashedPassword
-            })
+        return mapUser(await user.save())
+    } catch (error) { throw error }
+}
 
-            return user.save()
-                .then(user => ({
-                    ...(<any>user)._doc,
-                    _id: (<any>user).id,
-                    password: null
-                }))
-                .catch(error => { throw error })
-        })
-        .catch(error => { throw error })
+// export const createUser = async ({ userInput }) => {
+//     try {
+//         const _user = await User.findOne({ email: userInput.email })
+//         if (_user) throw new Error('User exists already.')
+//         const hashedPassword = await bcrypt.hash(userInput.password, 12)
+//         const user = new User({
+//             email: userInput.email,
+//             password: hashedPassword
+//         })
+//         return mapUser(await user.save())
+//     } catch (error) { throw error }
+// }
