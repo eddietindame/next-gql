@@ -7,6 +7,7 @@ export const schema = buildSchema(`
         events: [Event!]!
         users: [User!]!
         bookings: [Booking!]!
+        login(email: String!, password: String!): AuthData
     }
 
     type Mutation {
@@ -14,6 +15,12 @@ export const schema = buildSchema(`
         createUser(email: String!, password: String!): User
         bookEvent(eventId: ID!): Event!
         cancelBooking(bookingId: ID!): Event!
+    }
+
+    type AuthData {
+        userId: ID!
+        token: String!
+        tokenExpiration: Int!
     }
 
     type Event {

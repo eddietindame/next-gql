@@ -5,6 +5,7 @@ import { bookEvent } from './bookEvent'
 import { cancelBooking } from './cancelBooking'
 import { createEvent } from './createEvent'
 import { createUser } from './createUser'
+import { login } from './login'
 
 export const rootValue = {
     events,
@@ -14,6 +15,7 @@ export const rootValue = {
     createUser,
     bookEvent,
     cancelBooking,
+    login,
     message: () => 'Hello World!',
     add: ({ num1, num2 }) => num1 + num2
 }

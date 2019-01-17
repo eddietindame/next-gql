@@ -4,6 +4,7 @@ import * as next from 'next'
 import * as expressGraphql from 'express-graphql'
 import * as mongoose from 'mongoose'
 
+import { isAuth } from './middleware/isAuth'
 import { schema } from './schema'
 import { rootValue } from './resolvers'
 
@@ -17,6 +18,8 @@ const handle = app.getRequestHandler()
 app.prepare()
     .then(() => {
         const server = express()
+
+        server.use(isAuth)
 
         server.use('/graphql', expressGraphql({
             schema,
